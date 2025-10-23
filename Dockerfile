@@ -4,9 +4,14 @@ FROM eclipse-temurin:17-jdk-jammy
 # Set the working directory inside the container
 WORKDIR /app
 
-# Copy the Maven wrapper files (if you use Maven wrapper)
+# Copy the Maven wrapper files 
 COPY .mvn/ .mvn
 COPY mvnw pom.xml ./
+
+# --- ADD THIS LINE ---
+# Grant execute permission to the mvnw script
+RUN chmod +x mvnw 
+# ---------------------
 
 # Download dependencies (this layer is cached)
 RUN ./mvnw dependency:go-offline -B
